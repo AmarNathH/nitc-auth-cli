@@ -1,4 +1,6 @@
 # Nitc-auth-CLI
+![License](https://img.shields.io/github/license/amarnathh/nitc-auth-cli.svg) 
+
 These scripts can be used for logging in and loggin out from NITC Network in the CLI itself, without any need for GUI. These can be used in headless systems such as Servers, Raspberry-pi..etc. It has been made sure that the script uses only bare-minimum external programs which is commonly available in any minimal Linux-based systems.
 
 | Code | Description |
