@@ -11,6 +11,8 @@ LOGOUT_FILE="logout.sh"
 LOG_FILE="log_file"
 SHELL=$(printenv SHELL)
 
+#!!Check for dependencies - wget, curl and sed
+
 echo "Checking installation files"
 if [ \( ! -f "$LOGIN_FILE" \) -o \( ! -f "$LOGOUT_FILE" \) ]; then
     echo "Error: Files are not proper, please reclone the repo"
