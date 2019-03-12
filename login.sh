@@ -5,11 +5,6 @@
 # Description : This bash script can be used to login to NITC network without any browser. Can be used in Linux systems in robots, where no display is connected such as Raspberry Pi...etc, make sure you have logout.sh script also which can be used to logout later
 
 # reading username and password to be used from user, the password will be hidden while typing
-read -p 'Username: ' username
-printf "Password: "
-read -s password
-printf "\n"
-
 output=$(curl -s 'http://www.gstatic.com/generate_204'--compressed)
 
 checkoutput=${output:0:6}
@@ -18,6 +13,11 @@ if [ "$checkoutput" != '<html>' ]; then
     echo "Something doesn't seem right. Check if you are already logged in"
     exit
 fi
+
+read -p 'Username: ' username
+printf "Password: "
+read -s password
+printf "\n"
 
 web_address=${output:105:25}
 # web_address=$(echo $output | cut -c106-130)
