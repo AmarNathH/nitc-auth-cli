@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Version : 1.1
+# Version : 1.4
 # Author : Amarnath (amarnath.h.96@gmail.com)
 # Description : This bash script can be used to install the nitc-auth-cli package to the system
 
