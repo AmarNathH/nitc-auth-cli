@@ -15,7 +15,7 @@ These scripts can be used for logging in and out of NITC Network from the CLI it
 
 Make sure you have the dependencies before using the script
 
-You can install the files to your system by using the `install.sh` script. The installation will install the files to the `/opt/nitc-auth-cli` directory and will add aliases for the `login.sh`,`logout.sh` and `log_file`. You can then execute the login script by using the command `nitc-login`, logout script by using the command `nitc-logout` and you can see the content inside `log_file` with the command `nitc-logfile`.  As of now the install.sh script supports bash and zsh shells.
+You can install the files to your system by using the `install.sh` script. The installation will install the files to the `~/.nitc-auth-cli` directory and will add aliases for the `login.sh`,`logout.sh` and `log_file`. You can then execute the login script by using the command `nitc-login`, logout script by using the command `nitc-logout` and you can see the content inside `log_file` with the command `nitc-logfile`.  As of now the install.sh script supports bash and zsh shells.
 
  If you are not able run the scripts, you can use the command
  
