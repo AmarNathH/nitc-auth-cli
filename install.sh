@@ -48,15 +48,19 @@ if [ "$SHELL" == "/usr/bin/zsh" ]; then
     echo "# nitc-auth-cli">>~/.zshrc
     echo "alias nitc-login=\"$INSTALL_DIR./$LOGIN_FILE\"">>~/.zshrc
     echo "alias nitc-logout=\"$INSTALL_DIR./$LOGOUT_FILE\"">>~/.zshrc
+    echo "alias nitc-logfile=\"cat $INSTALL_DIR$LOG_FILE\"">>~/.bashrc
 elif [ "$SHELL" == "/bin/bash" ]; then
     echo "Writing to .bashrc file"
     echo "# nitc-auth-cli">>~/.bashrc
     echo "alias nitc-login=\"$INSTALL_DIR./$LOGIN_FILE\"">>~/.bashrc
     echo "alias nitc-logout=\"$INSTALL_DIR./$LOGOUT_FILE\"">>~/.bashrc
+    echo "alias nitc-logfile=\"cat $INSTALL_DIR$LOG_FILE\"">>~/.bashrc
 fi
 
 touch "$INSTALL_DIR$LOG_FILE"
 echo "NIL" > "$INSTALL_DIR$LOG_FILE"
+
+chmod 0777 $INSTALL_DIR$LOG_FILE
 
 echo "Installation complete :)"
 
