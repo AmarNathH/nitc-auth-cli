@@ -5,7 +5,7 @@
 # Description : This bash script can be used to install the nitc-auth-cli package to the system
 
 # variables to be used in this script
-INSTALL_DIR="~/.nitc-auth-cli/"
+INSTALL_DIR="/opt/nitc-auth-cli/"
 LOGIN_FILE="login.sh"
 LOGOUT_FILE="logout.sh"
 LOG_FILE="log_file"
@@ -27,6 +27,11 @@ else
 fi
 
 mkdir -p "$INSTALL_DIR"
+
+if [ -d "$INSTALL_DIR" ]; then
+    echo "Unable to create directory, Please run the script with administrative rights"
+    exit
+fi
 
 echo "Copying Files"
 cp "$LOGIN_FILE" "$INSTALL_DIR"
