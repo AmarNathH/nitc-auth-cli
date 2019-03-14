@@ -26,7 +26,7 @@ else
     echo "Installing at:$INSTALL_DIR"
 fi
 
-mkdir "$INSTALL_DIR"
+mkdir -p "$INSTALL_DIR"
 
 echo "Copying Files"
 cp "$LOGIN_FILE" "$INSTALL_DIR"
