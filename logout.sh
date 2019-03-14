@@ -18,5 +18,6 @@ if [ "$checkoutput" == "" ]; then
     echo "Something is not right please check the log_file." 
     echo "If the IP address is not correct, either change it to correct one or rerun login.sh script"
 else 
+    # echo "Logging out at:$web_address with key:$secure_key"
     echo "Logout Successful"
 fi

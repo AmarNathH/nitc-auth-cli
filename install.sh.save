@@ -11,7 +11,7 @@ LOGOUT_FILE="logout.sh"
 LOG_FILE="log_file"
 SHELL=$(printenv SHELL)
 
-#!!DEV-todo:Check for dependencies - wget, curl and sed
+#!!Check for dependencies - wget, curl and sed
 
 echo "Checking installation files"
 if [ \( ! -f "$LOGIN_FILE" \) -o \( ! -f "$LOGOUT_FILE" \) ]; then
@@ -21,11 +21,7 @@ fi
 
 if [ -d "$INSTALL_DIR" ]; then
     echo "Directory $INSTALL_DIR already exists, Overwriting!"
-    rm -rf "$INSTALL_DIR"
-    if [ -d "$INSTALL_DIR" ]; then
-        echo "Unable to delete directory, Please run the script with administrative rights."
-        exit
-    fi
+    rm -r "$INSTALL_DIR"
 else
     echo "Installing at:$INSTALL_DIR"
 fi
@@ -33,10 +29,9 @@ fi
 mkdir -p "$INSTALL_DIR"
 
 if [ ! -d "$INSTALL_DIR" ]; then
-    echo "Unable to create directory, Please change the diretory or run the script with administrative rights."
+    echo "Unable to create directory, Please run the script with administrative rights"
     exit
 fi
-
 
 echo "Copying Files"
 cp "$LOGIN_FILE" "$INSTALL_DIR"
@@ -46,17 +41,19 @@ cp "$LOGOUT_FILE" "$INSTALL_DIR"
 if [ "$SHELL" == "/usr/bin/zsh" ]; then
     echo "Writing to .zshrc file"
     echo "# nitc-auth-cli">>~/.zshrc
-    echo "alias nitc-login=\"$INSTALL_DIR./$LOGIN_FILE\"">>~/.zshrc
-    echo "alias nitc-logout=\"$INSTALL_DIR./$LOGOUT_FILE\"">>~/.zshrc
+    echo "alias nitc-login=\"$INSTALL_DIR$LOGIN_FILE\"">>~/.zshrc
+    echo "alias nitc-logout=\"$INSTALL_DIR$LOGOUT_FILE\"">>~/.zshrc
+    echo "alias nitc-logfile=\"cat $INSTALL_DIR$LOG_FILE\"">>~/.zshrc
 elif [ "$SHELL" == "/bin/bash" ]; then
     echo "Writing to .bashrc file"
     echo "# nitc-auth-cli">>~/.bashrc
-    echo "alias nitc-login=\"$INSTALL_DIR./$LOGIN_FILE\"">>~/.bashrc
-    echo "alias nitc-logout=\"$INSTALL_DIR./$LOGOUT_FILE\"">>~/.bashrc
+    echo "alias nitc-login=\"$INSTALL_DIR$LOGIN_FILE\"">>~/.bashrc
+    echo "alias nitc-logout=\"$INSTALL_DIR$LOGOUT_FILE\"">>~/.bashrc
+    echo "alias nitc-logfile=\"cat $INSTALL_DIR$LOG_FILE\"">>~/.bashrc
 fi
 
-touch "$INSTALL_DIR$LOG_FILE"
-echo "NIL" > "$INSTALL_DIR$LOG_FILE"
+echo "No content" > "$INSTALL_DIR$LOG_FILE"
 
 echo "Installation complete :)"
+
 
