@@ -5,7 +5,7 @@
 # Description : This bash script can be used to install the nitc-auth-cli package to the system
 
 # variables to be used in this script
-INSTALL_DIR="/opt/nitc-auth-cli/"
+INSTALL_DIR="~/.nitc-auth-cli/"
 LOGIN_FILE="login.sh"
 LOGOUT_FILE="logout.sh"
 LOG_FILE="log_file"
