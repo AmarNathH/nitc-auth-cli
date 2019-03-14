@@ -22,16 +22,20 @@ fi
 if [ -d "$INSTALL_DIR" ]; then
     echo "Directory $INSTALL_DIR already exists, Overwriting!"
     rm -r "$INSTALL_DIR"
+    if [ -d "$INSTALL_DIR" ]; then
+        echo "Unable to create directory, Please run the script with administrative rights."
+        exit
+    fi
 else
     echo "Installing at:$INSTALL_DIR"
+    mkdir -p "$INSTALL_DIR"
 fi
 
-mkdir -p "$INSTALL_DIR"
-
-if [ -d "$INSTALL_DIR" ]; then
-    echo "Unable to create directory, Please run the script with administrative rights"
+if [ ! -d "$INSTALL_DIR" ]; then
+    echo "Unable to create directory, Please run the script with administrative rights."
     exit
 fi
+
 
 echo "Copying Files"
 cp "$LOGIN_FILE" "$INSTALL_DIR"
