@@ -26,7 +26,7 @@ else
     echo "Installing at:$INSTALL_DIR"
 fi
 
-mkdir "$INSTALL_DIR"
+mkdir -p "$INSTALL_DIR"
 
 echo "Copying Files"
 cp "$LOGIN_FILE" "$INSTALL_DIR"
@@ -47,5 +47,8 @@ elif [ "$SHELL" == "/bin/bash" ]; then
     echo "alias nitc-logfile=\"cat $INSTALL_DIR$LOG_FILE\"">>~/.bashrc
 fi
 
+echo "No content" > "$INSTALL_DIR$LOG_FILE"
+
 echo "Installation complete :)"
+
 
