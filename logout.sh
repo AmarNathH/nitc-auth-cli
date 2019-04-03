@@ -1,8 +1,7 @@
 #!/bin/bash
-
 # Version : 1.4
 # Author : Amarnath (amarnath.h.96@gmail.com)
-# Description : This bash script can be used to logout to NITC network without any browser. Can be used in Linux systems in robots, where no display is connected such as Raspberry Pi...etc, This has to be used in conjuction with login.sh script
+# Description : This bash script is used to logout to NITC network without any browser. Can be used in Linux systems in robots, where no display is connected such as Raspberry Pi...etc, This has to be used in conjuction with login.sh script
 
 #stores current directory value
 CURRENT_DIR=$(dirname "${BASH_SOURCE[0]}")

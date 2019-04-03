@@ -1,8 +1,8 @@
 #!/bin/bash
-
 # Version : 1.4
 # Author : Amarnath (amarnath.h.96@gmail.com)
-# Description : This bash script can be used to login to NITC network without any browser. Can be used in Linux systems in robots, where no display is connected such as Raspberry Pi...etc, make sure you have logout.sh script also which can be used to logout later
+# Description : This bash script is used to login to NITC network without any browser. Can be used in Linux systems in robots, where no display is connected such as Raspberry Pi...etc, make sure you have logout.sh script also which can be used to logout later
+
 output=$(curl -s 'http://www.gstatic.com/generate_204'--compressed)
 
 checkoutput=${output:0:6}
