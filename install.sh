@@ -1,5 +1,5 @@
 #!/bin/bash
-# Version : 1.4
+# Version : 2.0
 # Author : Amarnath (amarnath.h.96@gmail.com)
 # Description : This bash script is used to install the nitc-auth-cli package to the system
 
@@ -11,6 +11,7 @@ LOG_FILE="log_file"
 SHELL=$(printenv SHELL)
 
 #!!DEV-todo:Check for dependencies - wget, curl and sed
+#!!DEV-todo:Move the installation to usr/bin directory
 
 echo "Checking installation files"
 if [ \( ! -f "$LOGIN_FILE" \) -o \( ! -f "$LOGOUT_FILE" \) ]; then
