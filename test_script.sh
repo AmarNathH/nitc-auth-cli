@@ -1,5 +1,5 @@
 #!/usr/bin/env bats
 
-@test "Check if all the required scripts are there" {
-	assert_exists "login.sh"
+@test 'assert_file_exist()' {
+  assert_file_exist login.sh
 }
