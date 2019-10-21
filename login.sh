@@ -18,13 +18,57 @@ fi
 web_address=$(curl -s 'http://www.gstatic.com/generate_204'--compressed 2>&1 | sed -e 's/.*href="\(.*\)fg.*/\1/' )
 secure_key=$(curl -s 'http://www.gstatic.com/generate_204'--compressed 2>&1 | sed -e 's/.*?\(.*\)">.*/\1/' )
 
-# reading username and password to be used from user, the password will be hidden while typing
-read -p 'Username: ' username
+#####################################################################################################################################################
+if ! [ -x "$(command -v dialog)" ]; then # if dialog is not installed
+    # reading username and password to be used from user, the password will be hidden while typing
+    read -p 'Username: ' username
 
-# using printf to hide the typing of the password
-printf "Password: "
-read -s password
-printf "\n"
+    # using printf to hide the typing of the password
+    printf "Password: "
+    read -s password
+    printf "\n"
+
+else
+    # reading username and password to be used from user, the password will be hidden while typing
+    # creating empty file to store input text
+
+    uname_result="input.txt"
+    >$uname_result
+    #creating dialogue box for input
+    dialog --title "" \
+    --backtitle "### NITC FIREWALL AUTHENTICATION ###" \
+    --inputbox "Enter your username" 8 60 2>$uname_result
+
+    # get the return value  
+    response=$?
+    username=$(<$uname_result)
+    case $response in
+    0) 
+        data=$(tempfile 2>/dev/null)
+        # delete the password stored file, if program is exited pre-maturely.
+        trap "rm -f $data"
+        dialog --title "Password" \
+        --insecure \
+        --clear \
+        --passwordbox "Please enter password" 10 30 2> $data
+
+        reply=$?
+
+        case $reply in
+        0) password=$(cat $data);;
+        1) echo "You have pressed Cancel";;
+        255) [ -s $data ] &&  cat $data || echo "ESC pressed.";;
+        esac
+    ;;
+    1) echo "Cancelled." ;;
+    255) echo "Escape key pressed."
+    esac
+    rm $uname_result
+
+
+fi
+#########################################################################################################################################################
+
 
 #stores current directory value
 CURRENT_DIR=$(dirname "${BASH_SOURCE[0]}")
