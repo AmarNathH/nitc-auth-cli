@@ -1,6 +1,5 @@
 #!/bin/bash
 # Version : 2.0
-# Author : Amarnath (amarnath.h.96@gmail.com)
 # Description : This bash script is used to logout to NITC network without any browser. Can be used in Linux systems in robots, where no display is connected such as Raspberry Pi...etc, This has to be used in conjuction with login.sh script
 
 #stores current directory value

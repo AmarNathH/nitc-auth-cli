@@ -1,9 +1,8 @@
 #!/bin/bash
 # Version : 2.0
-# Author : Amarnath (amarnath.h.96@gmail.com)
-# Description : This bash script is used to login to NITC network without any browser. Can be used in Linux systems in robots, where no display is connected such as Raspberry Pi...etc, make sure you have logout.sh script also which can be used to logout later
+# Description : This bash script is used to login to NITC network without any browser. Can be used in Linux systems in robots, servers...etc, where no display is connected such as Raspberry Pi...etc, make sure you have logout.sh script also which can be used to logout later
 
-output=$(curl -s 'http://www.gstatic.com/generate_204'--compressed)
+output=$(curl -m 3 -s 'http://www.gstatic.com/generate_204'--compressed)
 
 # variable used to check whether we are already logged in or not
 checkoutput=${output:0:6}
@@ -13,11 +12,6 @@ if [ "$checkoutput" != '<html>' ]; then
     exit
 fi
 
-# Extracting the web address and the secure key used, is later used to logout
-# curl writes to stderr, but grep works with stdout, hence the below redirection is necessary
-web_address=$(curl -s 'http://www.gstatic.com/generate_204'--compressed 2>&1 | sed -e 's/.*href="\(.*\)fg.*/\1/' )
-secure_key=$(curl -s 'http://www.gstatic.com/generate_204'--compressed 2>&1 | sed -e 's/.*?\(.*\)">.*/\1/' )
-
 # reading username and password to be used from user, the password will be hidden while typing
 read -p 'Username: ' username
 
@@ -26,6 +20,15 @@ printf "Password: "
 read -s password
 printf "\n"
 
+
+# Extracting the web address and the secure key used, is later used to logout
+# curl writes to stderr, but grep works with stdout, hence the below redirection is necessary
+web_address=$(curl -m 3 -s 'http://www.gstatic.com/generate_204' -H 'Upgrade-Insecure-Requests: 1' --compressed 2>&1 | sed -e 's/.*href="\(.*\)fg.*/\1/' )
+secure_key=$(curl -m 3 -s 'http://www.gstatic.com/generate_204' -H 'Upgrade-Insecure-Requests: 1' --compressed 2>&1 | sed -e 's/.*?\(.*\)">.*/\1/')
+
+# We have to connect to the website once so that the subsequent curl requests work; /dev/null to suppress output
+curl -s -m 3 "${web_address}fgtauth?${secure_key}" > /dev/null
+
 #stores current directory value
 CURRENT_DIR=$(dirname "${BASH_SOURCE[0]}")
 
@@ -33,11 +36,16 @@ CURRENT_DIR=$(dirname "${BASH_SOURCE[0]}")
 echo "$web_address" > $CURRENT_DIR/log_file
 echo "$secure_key" >> $CURRENT_DIR/log_file
 
-#long form of the request
-# curl "${web_address}" -H 'Connection: keep-alive' -H 'Cache-Control: max-age=0' -H "Origin: $web_address" -H 'Upgrade-Insecure-Requests: 1' -H 'Content-Type: application/x-www-form-urlencoded' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8' -H "Referer: $web_address/fgtauth?$secure_key" -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: en-GB,en-US;q=0.9,en;q=0.8' --data "4Tredir=http%3A%2F%2Fwww.gstatic.com%2Fgenerate_204&magic=$secure_key&username=$username&password=$password" --compressed
+# command for send packet with specified username and password
+curl_cmd="curl -s -m 3 '${web_address}' -H 'Connection: keep-alive' -H 'Cache-Control: max-age=0' -H 'Origin: ${web_address}' -H 'Upgrade-Insecure-Requests: 1' -H 'Referer: ${web_address}fgtauth?${secure_key}' --data '4Tredir=http%3A%2F%2Fwww.gstatic.com%2Fgenerate_204&magic=${secure_key}&username=${username}&password=${password}' --compressed"
 
-#reduced form of the request
-checkoutput=$(curl -s "${web_address}" -H 'Connection: keep-alive' -H "Origin: $web_address" -H "Referer: $web_address fgtauth?$secure_key" --data "4Tredir=http%3A%2F%2Fwww.gstatic.com%2Fgenerate_204&magic=$secure_key&username=$username&password=$password" --compressed)
+checkoutput=$(eval $curl_cmd)
+
+if [ "$checkoutput" = "" ]; then
+    echo "Not able to connect to the website."
+    echo "If it is not your internet, then raise this issue at Github."
+    exit
+fi
 
 #extract status from the output of curl
 checkoutput=$(echo "$checkoutput" | sed -n "75p")
