@@ -33,5 +33,5 @@ Now you can open your terminal and use the commands `nitc-login` for logging in,
 
 ### Troubleshooting  
 If you are not able run the scripts, you can use the command  
-`chmod +x <script-name>.sh`  
+`$ chmod +x <script-name>.sh`  
 This will change the permission of the script files, and will allow you to run the scripts
