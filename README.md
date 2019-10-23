@@ -25,7 +25,7 @@ Then open the terminal in the current directory and use the following command to
 To Logout from the current session use the command  
 `$ ./logout.sh`
 
-**After Installating**  
+**After Installation**  
 For installing you have to execute the following command,  
 `$ sudo ./install.sh`   
 During installation the files will be copied to `/opt/nitc-auth-cli` and some alias commands will be added to your `.bashrc` or `.zshrc`.  
