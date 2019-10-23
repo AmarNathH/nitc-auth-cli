@@ -13,22 +13,29 @@ These scripts can be used for logging in and out of NITC Network from the CLI it
 
 **Dependencies:** wget, curl, sed
 
-Make sure you have the dependencies before using the script
+Make sure you have the dependencies before using the script if not run `sudo apt install wget curl sed`.
 
 
+**How to Use**
+___
+Method 1  Without Installation:  
+The codes have to be run from its directory.   
+steps are :
+1. Go to the Directory containing the files
+2. Open terminal in the directory use command `./login.sh`. Enter your Username and password as promted. Firewall Authentication Successful is returned if login is succesfull.
+3. To Logout ocpen terminal in the directory use command `./logout.sh`. Logout Successful is returned if logout is succesfull.
 
-You can use the files directly as `./login.sh` and `./logout.sh` or you could install them. You can install the files to your system by using the `install.sh` script. Please run it with `sudo ./install.sh`. The installation will install the files to the `/opt/nitc-auth-cli/` directory and will add aliases for the `login.sh`,`logout.sh` and `log_file`. You can then execute the login script by using the command `nitc-login`, logout script by using the command `nitc-logout` and you can see the content inside `log_file` with the command `nitc-logfile`. As of now the install script supports bash and zsh shells.
+Method 2  By Installing:  
+The program is added into bashrc and can be used from terminal. As of now the install script supports bash and zsh shells.
+Steps:
 
- If you are not able run the scripts, you can use the command
+1. Go to the Directory containing the files , Run `sudo ./install.sh` (The sudo previllege is mandatory). Returns Installation complete if successfull. The files are installed in /opt/nitc-auth-cli .
+3. To logout Open terminal use command `nitc-logout`.To see `log_file` use command `nitc-logfile`.
+
+**Troubleshoot**
+___
+If you are not able run the scripts, you can use the command
  
 `chmod +x <script-name>.sh`
 
 This will change the permission of the script files, and will allow you to run the scripts
-
-**How to Use**
-_____
-
-Method 1  Without Installation
-1. Go to the Directory containing the files
-2. Open terminal in the directory use command `./login.sh` .
-
