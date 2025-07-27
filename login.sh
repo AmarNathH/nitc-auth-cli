@@ -13,7 +13,18 @@ if [ "$checkoutput" != '<html>' ]; then
 fi
 
 #####################################################################################################################################################
-if ! [ -x "$(command -v dialog)" ]; then # if dialog is not installed 
+
+if [[ -n "$1" && -n "$2" ]]; then
+    username="$1"
+    password="$2"
+    skip_dialog=true
+else
+    skip_dialog=false
+fi
+
+if [ "$skip_dialog" = true ]; then
+    :
+elif ! [ -x "$(command -v dialog)" ]; then
     # reading username and password to be used from user, the password will be hidden while typing
     read -p 'Username: ' username
 
